@@ -7,7 +7,35 @@
 
   ![Messaging Diagram](./Messaging.png)
 
-## 2. Why Messaging?
+It is worth mentioning that Messaging Architecture is not the same as Event Driven Architecture. However, they are very similar in design/implementation and are often used as interhcangable terms.
+
+### Messaging vs. Event-Driven Architecture
+
+| **Aspect**                 | **Messaging Architecture**                                         | **Event-Driven Architecture**                                     |
+| -------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| **Primary Goal**           | Decouple communication between systems via messages                | React to events or state changes in the system                    |
+| **Message Type**           | **Command** (instruction to do something)                          | **Event** (fact about something that happened)                    |
+| **Initiator Intent**       | Sender wants a specific **action** to occur                        | Publisher just **notifies** about an event, doesn’t expect action |
+| **Message Direction**      | Often **point-to-point** (queues)                                  | Often **publish-subscribe** (multiple consumers)                  |
+| **Examples**               | "CreateOrder", "SendEmail", "GenerateInvoice"                      | "OrderCreated", "UserSignedUp", "FileUploaded"                    |
+| **Coupling**               | Loosely coupled but implies **intent**                             | Loosely coupled and **informational**                             |
+| **Delivery Guarantee**     | Often **guaranteed delivery** with retry logic (e.g., Service Bus) | Best-effort or at-least-once delivery (e.g., Event Grid, Kafka)   |
+| **Consumer Behavior**      | Consumer is expected to **act on** the message                     | Consumers **decide how to react** to the event                    |
+| **Control Flow**           | Sender **controls** what needs to happen                           | Receiver(s) **decide** what to do based on event type             |
+| **Latency Requirements**   | Often used for **background jobs or workflows**                    | Often used for **real-time reactions**                            |
+| **Common Protocols/Tools** | Azure Service Bus, RabbitMQ, MSMQ                                  | Azure Event Grid, Kafka, AWS EventBridge, Event Hubs              |
+
+### Summary
+
+Messaging Architecture:
+* Is about reliable commands and task delegation.
+* Use when the sender wants something to happen.
+
+Event-Driven Architecture:
+* Is about informing others that something happened.
+* Use when you want to notify many systems to react independently.
+
+## 2. Why Messaging/Event Driven Designs?
 
 Messaging brings several architectural and operational advantages to modern software systems:
 
@@ -121,26 +149,64 @@ Messaging brings several architectural and operational advantages to modern soft
 * Timer → {Service Bus/EventGrid/EventHub} → Function App
 ```
 
-## 9. Demo / Example Use Case
+## 9. Azure Function Triggers
 
-> **Scenario**: Order intake system
-> **Flow**:
-> Order submitted → Placed on Service Bus Queue → Azure Function processes it → Stores in database → Sends notification
+Azure provides a number of trigger types that allow you to develop message/event based systems. As previously noted  
 
-## 10. Messaging Operations (Ops)
+### Messaging & Eventing Triggers
+
+| Trigger Type              | Description                                                              |
+| ------------------------- | ------------------------------------------------------------------------ |
+| **HTTP Trigger**          | Responds to HTTP requests (GET, POST, etc.). Ideal for APIs or webhooks. |
+| **Service Bus Trigger**   | Listens to Service Bus queues or topics. Great for enterprise messaging. |
+| **Event Grid Trigger**    | Responds to events from Azure Event Grid (e.g., Blob created).           |
+| **Event Hub Trigger**     | Processes high-throughput event streams (e.g., telemetry, logs).         |
+| **Queue Storage Trigger** | Responds to messages in Azure Storage queues.                            |
+
+### Storage & Data Triggers
+
+| Trigger Type             | Description                                                       |
+| ------------------------ | ----------------------------------------------------------------- |
+| **Blob Storage Trigger** | Fires when a blob is created or updated in Azure Blob Storage.    |
+| **Cosmos DB Trigger**    | Reacts to inserts/updates in a Cosmos DB container (Change Feed). |
+| **SQL Database Trigger** | (Preview) Reacts to changes in Azure SQL DB via Change Tracking.  |
+
+### Time-Based Trigger
+
+| Trigger Type      | Description                                                        |
+| ----------------- | ------------------------------------------------------------------ |
+| **Timer Trigger** | Schedules the function to run at specific times (CRON expression). |
+
+### Specialized Triggers
+
+| Trigger Type                         | Description                                                 |
+| ------------------------------------ | ----------------------------------------------------------- |
+| **Durable Functions Triggers**       | Supports orchestrator, activity, and entity triggers.       |
+| **SignalR Trigger**                  | (Used with bindings) Enables real-time messaging scenarios. |
+| **Kafka Trigger (via extension)**    | Enables event-driven functions from Apache Kafka.           |
+| **Custom Binding / Webhook Handler** | Custom integration with external systems or SaaS platforms. |
+
+
+## 10. Demo / Examples
+
+In this repository you will find various code examples that provide not only coding context but a look into the symantics of the various types messaging services and how they react based on the given architectural design.
+
+* [Service Bus Examples](./servicebus/)
+
+## 11. Messaging Operations (Ops)
 
 * **Monitoring**: Azure Monitor, Application Insights, Service Bus metrics.
 * **Failures**: Handle with retries, DLQs (dead-letter queues), and alerts.
 * **Retries**: Built-in in Functions/Logic Apps; configure max attempts and backoff.
 * **Idempotency**: Use message IDs or hashes to avoid duplicate processing.
 
-## 11. Security Considerations
+## 12. Security Considerations
 
 * Encrypt messages in transit (TLS).
 * Use **Managed Identities** and **Azure RBAC**.
 * Leverage **Shared Access Policies** for scoped access control.
 
-## 12. Final Thoughts
+## 13. Final Thoughts
 
 * Messaging is a practical modernization step, especially for legacy apps.
 * Start with a hybrid approach.

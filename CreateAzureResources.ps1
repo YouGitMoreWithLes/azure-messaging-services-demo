@@ -1,4 +1,4 @@
-$rgName = "bitco-servicebus-rg"
+$rgName = "messaging-rg"
 $location = "eastus"
 $sbNamespaceName = "example-sbn"
 $queueName = "example-queue"
