@@ -25,7 +25,7 @@ eventhub/                            # Event Hub examples
 3. .NET 8.0 SDK
 4. Azure subscription with appropriate permissions
 5. Environment variables set:
-   - `SERVICE_BUS_CONNECTION_STRING`: Your Azure Service Bus connection string
+   - `SERVICE_BUS_CONNECTION_STRING`: Your Azure Service Bus connection string (the script below will set this if you run it)
    - `SERVICE_BUS_QUEUE_NAME`: (Optional) Your queue name
    - `SERVICE_BUS_TOPIC_NAME`: (Optional) Your topic name
    - `SERVICE_BUS_SUBSCRIPTION_NAME`: (Optional) Your subscription name
