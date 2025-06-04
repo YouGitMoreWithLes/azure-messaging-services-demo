@@ -193,6 +193,7 @@ In this repository you will find various code examples that provide not only cod
 
 * [Service Bus Examples](./servicebus/)
 
+**NOTE:** Check out the demo README page here: [EXAMPLES](./EXAMPLES.md)
 ## 11. Messaging Operations (Ops)
 
 * **Monitoring**: Azure Monitor, Application Insights, Service Bus metrics.

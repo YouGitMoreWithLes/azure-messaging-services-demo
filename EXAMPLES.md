@@ -14,8 +14,6 @@ servicebus/
     ├── ServiceBusProducerBatch/      # Batch message publisher
     └── ServiceBusProducerSingle/     # Single message publisher
 
-eventgrid/                            # Event Grid examples
-eventhub/                            # Event Hub examples
 ```
 
 ## Prerequisites
