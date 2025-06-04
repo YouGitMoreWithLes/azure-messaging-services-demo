@@ -43,12 +43,6 @@ This repository contains examples of different Azure messaging services implemen
 The following PowerShell scripts are available in the root folder. To run any script, first open PowerShell and navigate to the root directory:
 
 ```powershell
-cd c:\Insight\BITCO
-```
-
-Then execute the desired script using:
-
-```powershell
 .\ScriptName.ps1
 ```
 
